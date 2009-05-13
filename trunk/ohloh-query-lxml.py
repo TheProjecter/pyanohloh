@@ -8,12 +8,7 @@ Copyright (c) 2009. All rights reserved.
 """
 
 import sys
-# import os
-# import httplib
-# import urlparse
-# import urllib
 import urllib2
-# import base64
 
 import lxml.html
 import lxml.html.soupparser
