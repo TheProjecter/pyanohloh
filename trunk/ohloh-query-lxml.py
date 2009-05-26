@@ -64,6 +64,11 @@ class Ohloh:
     
     def projects_contributers(self, ident):
         return self.request('projects' + '/' + str(ident) + '/' + 'contributors' + '.xml?sort=commits')
+        
+    # def contributor_language_fact(self):
+    #     return self.request('projects' + '/' + str(ident) + '/' + 'contributors' + '.xml?sort=commits')
+    #     # extract contributor_language_fact in 'result > contributor_fact > contributor_language_facts'
+    #     # for each contributor_language_fact extract man_months
 
     def parse_xml(self, data):
         root = lxml.html.fromstring(data)
