@@ -106,21 +106,31 @@ def print_project_contributers(ohloh, ident):
     for name in sel(root):
         print 'Contributer name: ' + name.text
     
-    # Hack hack hack
+    ## Hack hack hack
     # sel = CSSSelector('result > contributor_fact')
     # for fact in sel(root):
     #     print 'Contributer name: ' + fact['contributor_name'].text
 
-def get_languages_by_project(ohloh, ident):
+
+def get_language_by_project(ohloh, ident):
     data = ohloh.project(ident)
-    
+
     if not data:
         sys.exit("No data")
-    
+
     root = ohloh.parse_xml(data)
-    print lxml.etree.tostring(root, pretty_print=True)
+    # print lxml.etree.tostring(root, pretty_print=True)
     
+    sel = CSSSelector('analysis > main_language_name')
+    # for language in sel(root):
+    #     print 'main language: ' + language.text
+    
+    return sel(root)
+
+
+def get_programmers_by_languages(ohloh, lang_list):
     pass
+
 
 def main():
     api_key = '1xe6mtGfqDLsq7tMdV2hg'
@@ -131,11 +141,16 @@ def main():
     print_project_name(ohloh, proj_ident)
     # print_project_contributers(ohloh, proj_ident)
     
-    ## Find programming languages used by project
-    language_list = get_languages_by_project(ohloh, proj_ident)
+    ## Find programming language(s) used by project
+    language_list = get_language_by_project(ohloh, proj_ident)
+    for language in language_list:
+        print 'Main language: ' + language.text
+
     ## Find programmers who can program (all) these languages
-    ## Cull the list of programmers, by inactivity
-    ## Cull the list of programmers, by over activity
+    programmer_list = get_programmers_by_languages(ohloh, language_list)
+    
+    ## Remove inactive programmers
+    ## Remove over-active programmers
 
 
 if __name__ == '__main__':
