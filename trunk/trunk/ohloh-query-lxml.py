@@ -3,6 +3,8 @@
 """
 ohloh-query-lxml.py
 
+There is a dependency on lxml. On OS X you can get it with MacPorts.
+
 Created by Henk Poley on 2009-04-22.
 Copyright (c) 2009. All rights reserved.
 """
