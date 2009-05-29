@@ -42,35 +42,42 @@ class Ohloh:
         self.conn = Connection(base_url)
         self.api_key = api_key
     
-    def request(self, resource):
+    def request_scrape(self, resource):
+        full_resource = resource # + '?' + '&api_key=' + self.api_key
+        return self.conn.request(full_resource)
+    
+    def request_api(self, resource):
         full_resource = resource + '?' + '&api_key=' + self.api_key
         return self.conn.request(full_resource)
         
-    def single(self, path, ident):
-        return self.request(path + '/' + str(ident) + '.xml')
+    def single_api(self, path, ident):
+        return self.request_api(path + '/' + str(ident) + '.xml')
         
-    def multiple(self, path, query):
-        return self.request(path + '.xml?query=' + query)
+    def multiple_api(self, path, query):
+        return self.request_api(path + '.xml?query=' + query)
         
     def project(self, ident):
-        return self.single('projects', ident)
+        return self.single_api('projects', ident)
         
     def projects(self, query):
-        return self.multiple('projects', query)
+        return self.multiple_api('projects', query)
         
     def account(self, ident):
-        return self.single('accounts', ident)
+        return self.single_api('accounts', ident)
     
     def accounts(self, query):
-        return self.multiple('accounts', query)
+        return self.multiple_api('accounts', query)
     
     def projects_contributers(self, ident):
-        return self.request('projects' + '/' + str(ident) + '/' + 'contributors' + '.xml?sort=commits')
+        return self.request_api('projects' + '/' + str(ident) + '/' + 'contributors' + '.xml?sort=commits')
         
     # def contributor_language_fact(self):
-    #     return self.request('projects' + '/' + str(ident) + '/' + 'contributors' + '.xml?sort=commits')
+    #     return self.request_api('projects' + '/' + str(ident) + '/' + 'contributors' + '.xml?sort=commits')
     #     # extract contributor_language_fact in 'result > contributor_fact > contributor_language_facts'
     #     # for each contributor_language_fact extract man_months
+    
+    def language_scrape(self, ident):
+        return self.request_scrape('languages/' + str(ident))
 
     def parse_xml(self, data):
         root = lxml.html.fromstring(data)
@@ -123,7 +130,7 @@ def get_language_by_project(ohloh, ident):
     root = ohloh.parse_xml(data)
     # print lxml.etree.tostring(root, pretty_print=True)
     
-    sel = CSSSelector('analysis > main_language_name')
+    sel = CSSSelector('analysis > main_language_id')
     # for language in sel(root):
     #     print 'main language: ' + language.text
     
@@ -131,6 +138,20 @@ def get_language_by_project(ohloh, ident):
 
 
 def get_programmers_by_languages(ohloh, lang_list):
+    for language_id in lang_list:
+        data = ohloh.language_scrape(language_id.text)
+        
+        if not data:
+            sys.exit("No data")
+        
+        root = ohloh.parse_xml(data)
+        # print lxml.etree.tostring(root, pretty_print=True)
+        
+        ## Most Experienced Contributors
+        sel = CSSSelector('div.col.span_6.piano > div.inset > a.contributor > div.name')
+        for programmer in sel(root):
+            print 'programmer: ' + programmer.text
+        
     pass
 
 
@@ -145,8 +166,8 @@ def main():
     
     ## Find programming language(s) used by project
     language_list = get_language_by_project(ohloh, proj_ident)
-    for language in language_list:
-        print 'Main language: ' + language.text
+    for language_id in language_list:
+        print 'Main language: ' + language_id.text
 
     ## Find programmers who can program (all) these languages
     programmer_list = get_programmers_by_languages(ohloh, language_list)
