@@ -111,13 +111,31 @@ def print_project_contributers(ohloh, ident):
     # for fact in sel(root):
     #     print 'Contributer name: ' + fact['contributor_name'].text
 
+def get_languages_by_project(ohloh, ident):
+    data = ohloh.project(ident)
+    
+    if not data:
+        sys.exit("No data")
+    
+    root = ohloh.parse_xml(data)
+    print lxml.etree.tostring(root, pretty_print=True)
+    
+    pass
 
 def main():
     api_key = '1xe6mtGfqDLsq7tMdV2hg'
     
+    proj_ident = 1 # Subversion
+    
     ohloh = Ohloh(api_key)
-    print_project_name(ohloh, 1)  # 'projects/1.xml'
-    print_project_contributers(ohloh, 1)
+    print_project_name(ohloh, proj_ident)
+    # print_project_contributers(ohloh, proj_ident)
+    
+    ## Find programming languages used by project
+    language_list = get_languages_by_project(ohloh, proj_ident)
+    ## Find programmers who can program (all) these languages
+    ## Cull the list of programmers, by inactivity
+    ## Cull the list of programmers, by over activity
 
 
 if __name__ == '__main__':
