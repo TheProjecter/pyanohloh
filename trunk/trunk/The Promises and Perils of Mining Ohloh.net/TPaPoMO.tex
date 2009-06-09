@@ -1,0 +1,94 @@
+% This is "sig-alternate.tex" V1.8 June 2007
+% This file should be compiled with V2.3 of "sig-alternate.cls" June 2007
+%
+% Layout based on sig-alternate.tex V1.8 example file
+
+\documentclass{sig-alternate}
+
+\setlength\fboxrule{0.5pt}
+
+
+\begin{document}
+
+\CopyrightYear{2009}
+\toappear{} % Suppress explicit copyright rights notice.
+
+\title{The Promises and Perils of Mining Ohloh.net}
+
+\numberofauthors{1}
+\author{
+% 1st. author
+\alignauthor
+Henk Poley
+       \affaddr{Vrije Universiteit Amsterdam}
+       \email{hpy300@cs.vu.nl}
+}
+% 2nd author - Rahul Premraj (?)
+\date{30 July 1999}
+
+\maketitle
+\begin{abstract}
+Abstract here..
+\end{abstract}
+
+
+\section{Introduction}
+Introduction here..
+
+
+\section{The {\secit Body} of The Paper}
+Body here..
+
+\subsection{Related websites}
+Sourceforge.net..
+Ohloh.net has surpassed \emph{Freshmeat.net} since November 2008, according to compete.com site analysis. Alexa.com does not show this change, but does show wild changes in their statistics aggregation.
+\emph{DistroWatch.com} moves in more or less the same open source space, but collect only high level projects that integrate software together into desktop OSes. This site is less interesting to developers. It has about half the vistors as Freshmeat.net, and was surpassed by Ohloh in September 2008.
+
+
+\subsection{Promise: Learn what people are using and contributing to}
+
+\subsection{Peril: Multiple contributers could be the same person}
+For example a search for \emph{torvalds} will return 15 results. One is Linus Torvalds account. Another is a fan. And 13 are Linus Torvalds commits to projects that are not mentioned on his personal account.
+[cite: Smushing RDF]
+
+\subsection{Promise: Journaling lets you keep people up-to-date on what you're coding}
+
+
+\subsection{Promise: Increase awareness of your open source projects}
+
+First 63 contributers - rank 10
+3504 - rank 9
+10583 - rank 7 - the default rank
+
+
+\subsection{Promise: Estimating coding behaviour change}
+
+
+\subsection{Find good programmers}
+Many projects. Commits that shrink the codebase.
+
+
+\subsection{Peril: Limited to 1000 queries per day}
+
+
+\subsection{Peril: Web scraping gets more info than using API}
+
+
+\subsection{Peril: Can't find people by programming language}
+Currently you can't find people who use one -or several- language(s), with spidering the whole site and scraping it yourself.
+
+
+\subsection{Peril: Commit stats don't separate out changed lines}
+Encountered in [Contiuous integration..] is that Ohloh only counts lines removed from the previous state, and lines added in the commit. The amount of overlap is unknown. Lines changed or overlap measure could be used to asses code churn
+
+
+
+\section{Conclusions}
+Conclusions here..
+
+
+
+\bibliographystyle{abbrv}
+\bibliography{myrefs}
+
+\end{document}
