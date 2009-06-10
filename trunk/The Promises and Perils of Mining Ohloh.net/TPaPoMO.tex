@@ -15,77 +15,105 @@
 
 \title{The Promises and Perils of Mining Ohloh.net}
 
-\numberofauthors{1}
+\numberofauthors{2}
 \author{
 % 1st. author
 \alignauthor
-Henk Poley
-       \affaddr{Vrije Universiteit Amsterdam}
-       \email{hpy300@cs.vu.nl}
-}
+Henk Poley\\
+  \affaddr{Vrije Universiteit Amsterdam}\\
+  \email{hpy300@cs.vu.nl}
 % 2nd author - Rahul Premraj (?)
-\date{30 July 1999}
+\alignauthor Rahul Premraj\\
+\affaddr{Vrije Universiteit Amsterdam}\\
+\email{rpremraj@cs.vu.nl}
+}
+
+\date{July 2009}
+
 
 \maketitle
+
 \begin{abstract}
-Abstract here..
+Ohloh.net is a website that indexes open source software projects. It contains data on approx. 300.000 projects, and 330.000 source committers. In this paper we try to find a scientific use case for the data exposed through the Ohloh website \& API, and a review of existing papers.
 \end{abstract}
 
 
 \section{Introduction}
 Introduction here..
 
-
-\section{The {\secit Body} of The Paper}
-Body here..
-
 \subsection{Related websites}
-Sourceforge.net..
+Sourceforge.net has recently (May 2009) acquired Ohloh.net. Changes to either Ohloh or Sourceforge at not fleshed out. Though further orientation on finding projects on Ohloh's side, and hosting projects on Sourceforge's side seems obvious.
+
 Ohloh.net has surpassed \emph{Freshmeat.net} since November 2008, according to compete.com site analysis. Alexa.com does not show this change, but does show wild changes in their statistics aggregation.
-\emph{DistroWatch.com} moves in more or less the same open source space, but collect only high level projects that integrate software together into desktop OSes. This site is less interesting to developers. It has about half the vistors as Freshmeat.net, and was surpassed by Ohloh in September 2008.
+
+\emph{DistroWatch.com} moves in more or less the same open source space, but collects only high level projects that integrate software together into desktop OSes. This site is less interesting to developers. It has about half the vistors as Freshmeat.net, and was surpassed by Ohloh in September 2008.
+
+
+\section{Promises and Perils}
 
 
 \subsection{Promise: Learn what people are using and contributing to}
+In the paper "RDFohloh, a RDF wrapper of Ohloh" Sergio Fern\'andez worked on exposing the accounts on Ohloh as
+Friend-Of-A-Friend (FOAF) data in RDF format through the Ohloh API \cite{Fernandez:2008p4488}.
 
-\subsection{Peril: Multiple contributers could be the same person}
+
+\subsection{Peril: One person could be represented as multiple contributers}
 For example a search for \emph{torvalds} will return 15 results. One is Linus Torvalds account. Another is a fan. And 13 are Linus Torvalds commits to projects that are not mentioned on his personal account.
-[cite: Smushing RDF]
+The paper "Smushing RDF instances" worked on combining ('smushing') accounts and committers that represent the same person \cite{Shi:2009p4464}.
+
 
 \subsection{Promise: Journaling lets you keep people up-to-date on what you're coding}
-
+This requires the project maintainers to keep a weblog hosted on Ohloh itself. Also, other people can break into the timeline by mentioning (linking) the project in their posts. There are currently 934 projects with one or more journal entries, either by maintainers or Ohloh users mentioning the project.
 
 \subsection{Promise: Increase awareness of your open source projects}
+Questionable if this is this is a matter of fact, at the moment. 
 
-First 63 contributers - rank 10
-3504 - rank 9
-10583 - rank 7 - the default rank
+Kudorank starts at 7 and declines over time. Only receiving a 'kudo' from someone elses Ohloh account increases this score.
+
+\begin{tabular}{ r r }
+  kudorank & \#contributers \\
+  10 &    63 \\
+  9  &  3504 \\
+  8  & 10583 \\
+  7  & 26465 \\
+\end{tabular}
+
+With this we can estimate the amount of users with increased exposure at around 14.000 (kudorank 8, 9 \& 10). Set against the total user and committers base of about 330.000 gives us a 4.2\%.
 
 
 \subsection{Promise: Estimating coding behaviour change}
+Ohloh indexes commit size on projects with public repositories. Looking at changes in the commit size could give an indication of a coding philosophy change.
+
+This was researched by Amit Deshpande \& Dirk Riehle in "Continuous Integration in 
+Open Source Software Development". Their research hypotheses was: The average commit size in any year is greater than the average commit size during the next year. This was found to be non existant at 95\% confidence level. \cite{Deshpande:2008p4463}
 
 
-\subsection{Find good programmers}
-Many projects. Commits that shrink the codebase.
+\subsection{Promise: Find good programmers}
+Many projects, so 1000 query limit is a factor. Commits that shrink the codebase (cite?). Commits that fix bugs, look for common ticket references.
 
 
 \subsection{Peril: Limited to 1000 queries per day}
+The Ohloh.net website has to say "Bandwidth will initially be limited to 1,000 requests per API key per day".
 
 
 \subsection{Peril: Web scraping gets more info than using API}
+"The design concept is that for each web page on Ohloh, there may be an equivalent XML-formatted version of the page. Currently, only a small subset of the Ohloh site is available as XML, but more data will become available over time."
 
 
 \subsection{Peril: Can't find people by programming language}
-Currently you can't find people who use one -or several- language(s), with spidering the whole site and scraping it yourself.
+Currently you can't find people who use one -or several- language(s), without spidering the whole site and scraping it yourself. With the 1000 queries per day limit, one would need about a year (330 days) to scrape the entier user base.
 
 
 \subsection{Peril: Commit stats don't separate out changed lines}
-Encountered in [Contiuous integration..] is that Ohloh only counts lines removed from the previous state, and lines added in the commit. The amount of overlap is unknown. Lines changed or overlap measure could be used to asses code churn
-
+Encountered in \cite{Deshpande:2008p4463} is that Ohloh only counts lines removed from the previous state, and lines added in the commit. The amount of overlap is unknown, there is no count of which lines are only slightly changed. The lines changed or overlap measure could be used to asses code churn.
 
 
 \section{Conclusions}
 Conclusions here..
 
+
+\section{Acknowledgments}
+The structure of the paper was inspired by "The Promises and Perils of Mining Git" \cite{Bird:2009p4462}.
 
 
 \bibliographystyle{abbrv}
