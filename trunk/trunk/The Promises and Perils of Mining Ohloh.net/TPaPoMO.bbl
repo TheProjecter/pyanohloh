@@ -1,8 +1,24 @@
 \begin{thebibliography}{1}
 
-\bibitem{Litvinenko:2007p4494}
-A.~Litvinenko.
-\newblock Automatic prediction of source code contribution type.
-\newblock {\em dspace.utlib.ee}, Jan 2007.
+\bibitem{Bird:2009p4462}
+C.~Bird, P.~C. Rigby, E.~T. Barr, D.~J. Hamilton, D.~M. German, and P.~Devanbu.
+\newblock The promises and perils of mining git.
+\newblock pages 1--10, Apr 2009.
+
+\bibitem{Deshpande:2008p4463}
+A.~Deshpande and D.~Riehle.
+\newblock Continuous integration in open source software development.
+\newblock {\em IFIP International Federation for Information Processing},
+  275:273--280, 2008.
+
+\bibitem{Fernandez:2008p4488}
+S.~Fernandez.
+\newblock Rdfohloh, a rdf wrapper of ohloh.
+\newblock {\em 1st workshop on Social Data on the Web (SDoW2008)}, Jan 2008.
+
+\bibitem{Shi:2009p4464}
+L.~Shi, D.~Berrueta, S.~Fernandez, L.~Polo, and S.~Fernandez.
+\newblock Smushing rdf instances: are alice and bob the same open source
+  developer?
 
 \end{thebibliography}
