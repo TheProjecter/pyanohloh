@@ -4,28 +4,30 @@
 % Layout based on sig-alternate.tex V1.8 example file
 
 \documentclass{sig-alternate}
+% \usepackage{url}
+\usepackage{hyperref}
+\usepackage{natbib}
 
-\setlength\fboxrule{0.5pt}
+% \setlength\fboxrule{0.5pt}
 
 
 \begin{document}
 
 \CopyrightYear{2009}
-%\toappear{} % Suppress explicit copyright rights notice.
+\toappear{} % Suppress explicit copyright rights notice.
 
 \title{The Promises and Perils of Mining Ohloh.net}
 
 \numberofauthors{2}
 \author{
 % 1st. author
-\alignauthor
-Henk Poley\\
+\alignauthor Henk Poley\\
   \affaddr{Vrije Universiteit Amsterdam}\\
   \email{hpy300@cs.vu.nl}
 % 2nd author - Rahul Premraj (?)
 \alignauthor Rahul Premraj\\
-\affaddr{Vrije Universiteit Amsterdam}\\
-\email{rpremraj@cs.vu.nl}
+  \affaddr{Vrije Universiteit Amsterdam}\\
+  \email{rpremraj@cs.vu.nl}
 }
 
 \date{July 2009}
@@ -34,41 +36,47 @@ Henk Poley\\
 \maketitle
 
 \begin{abstract}
-Ohloh.net is a website that indexes open source software projects. It contains data on approx. 300.000 projects, and 330.000 source committers. In this paper we try to find a scientific use case for the data exposed through the Ohloh website \& API, and a review of existing papers.
+Ohloh.net is a website that indexes open source software projects, and generates some statistics on their source and commiters. In this paper we pose a few scientific use cases for the data exposed through the Ohloh website \& API, and a review of existing papers on this subject.
 \end{abstract}
 
 
 \section{Introduction}
-Introduction here..
+Ohloh.net was founded by two former Microsoft managers Jason Allen and Scott Collison in 2006. Ohloh contains data on approx. 300.000 projects, and 330.000 source committers.
+
 
 \subsection{Related websites}
-Sourceforge.net has recently (May 2009) acquired Ohloh.net. Changes to either Ohloh or Sourceforge at not fleshed out. Though further orientation on finding projects on Ohloh's side, and hosting projects on Sourceforge's side seems obvious.
+\emph{Sourceforge.net} is a large website that hosts open source projects. Sourceforge has recently (May 2009)acquired Oh\-loh. Changes to either Ohloh or Sourceforge at not worked out yet. Though further orientation on finding projects -on Ohloh's side- and hosting projects -on Sourceforge's side- seems obvious.
 
-Ohloh.net has surpassed \emph{Freshmeat.net} since November 2008, according to compete.com site analysis. Alexa.com does not show this change, but does show wild changes in their statistics aggregation.
+\emph{Freshmeat.net} is a website that indexes open source pro\-jects since 1998. In comparison to Ohloh there is less emphasis on developers than on their projects. Ohloh.net has surpassed Freshmeat.net since November 2008, according to compete.com site analysis. Alexa.com does not show this change, but does show stark changes in their statistics aggregation overall during this time.
 
-\emph{DistroWatch.com} moves in more or less the same open source space, but collects only high level projects that integrate software together into desktop OSes. This site is less interesting to developers. It has about half the vistors as Freshmeat.net, and was surpassed by Ohloh in September 2008.
+\emph{DistroWatch.com} moves in more or less the same open source space, but collects only high level projects that integrate software together into desktop OSes. This site is less focussed on individual developers, but more on the companies and groups the aggregate their work in distributions. It has about half the visitors as Freshmeat.net, and was surpassed by Ohloh in September 2008 according to compete.com.
 
 
 \section{Promises and Perils}
 
 
 \subsection{Promise: Learn what people are using and contributing to}
-In the paper "RDFohloh, a RDF wrapper of Ohloh" Sergio Fern\'andez worked on exposing the accounts on Ohloh as
-Friend-Of-A-Friend (FOAF) data in RDF format through the Ohloh API \cite{Fernandez:2008p4488}.
+In the paper "RDFohloh, a RDF wrapper of Ohloh" \cite{Fernandez:2008p4488}  worked on exposing the accounts on Ohloh as
+Friend-Of-A-Friend (FOAF) data in RDF format through the Ohloh API.
 
 
 \subsection{Peril: One person could be represented as multiple contributers}
+
 For example a search for \emph{torvalds} will return 15 results. One is Linus Torvalds account. Another is a fan. And 13 are Linus Torvalds commits to projects that are not mentioned on his personal account.
-The paper "Smushing RDF instances" worked on combining ('smushing') accounts and committers that represent the same person \cite{Shi:2009p4464}.
+
+The paper "Smushing RDF instances" \cite{Shi:2008p4464} worked on combining ('smushing') accounts and committers that represent the same person.
 
 
 \subsection{Promise: Journaling lets you keep people up-to-date on what you're coding}
 This requires the project maintainers to keep a weblog hosted on Ohloh itself. Also, other people can break into the timeline by mentioning (linking) the project in their posts. There are currently 934 projects with one or more journal entries, either by maintainers or Ohloh users mentioning the project.
 
+Ohloh should consider letting their users add external RSS feeds about their project, automatically aggregating these in the journal posts.
+
+
 \subsection{Promise: Increase awareness of your open source projects}
 Questionable if this is this is a matter of fact, at the moment. 
 
-Kudorank starts at 7 and declines over time. Only receiving a 'kudo' from someone elses Ohloh account increases this score.
+Kudorank starts at 7 and declines over time. Only receiving a 'kudo' from someone else's Ohloh account increases this score. This happens either by direct vote, or someone using your project in one of their software 'stacks' \cite{ohloh-kudos}. 
 
 \begin{tabular}{ r r }
   kudorank & \#contributers \\
@@ -81,31 +89,31 @@ Kudorank starts at 7 and declines over time. Only receiving a 'kudo' from someon
 With this we can estimate the amount of users with increased exposure at around 14.000 (kudorank 8, 9 \& 10). Set against the total user and committers base of about 330.000 gives us a 4.2\%.
 
 
-\subsection{Promise: Estimating coding behaviour change}
+\subsection{Promise: Estimating coding behavior change}
 Ohloh indexes commit size on projects with public repositories. Looking at changes in the commit size could give an indication of a coding philosophy change.
 
-This was researched by Amit Deshpande \& Dirk Riehle in "Continuous Integration in 
-Open Source Software Development". Their research hypotheses was: The average commit size in any year is greater than the average commit size during the next year. This was found to be non existant at 95\% confidence level. \cite{Deshpande:2008p4463}
-
-
-\subsection{Promise: Find good programmers}
-Many projects, so 1000 query limit is a factor. Commits that shrink the codebase (cite?). Commits that fix bugs, look for common ticket references.
+This was researched in "Continuous Integration in 
+Open Source Software Development" \cite{Deshpande:2008p4463}. Their research hypotheses was: The average commit size in any year is greater than the average commit size during the next year. This was found to be non existant at 95\% confidence level. 
 
 
 \subsection{Peril: Limited to 1000 queries per day}
 The Ohloh.net website has to say "Bandwidth will initially be limited to 1,000 requests per API key per day".
 
 
+\subsection{Promise: Find good programmers}
+Many projects, so 1000 query limit is a factor. Commits that shrink the codebase (cite?). Commits that fix bugs, look for common ticket references. You could graph developer connections -> needs smushing ->  analyses. Ohloh could also mine mailing lists, counting response time for developers [future]. Should be able to add projects that include you your work [future].
+
+
 \subsection{Peril: Web scraping gets more info than using API}
-"The design concept is that for each web page on Ohloh, there may be an equivalent XML-formatted version of the page. Currently, only a small subset of the Ohloh site is available as XML, but more data will become available over time."
+"The design concept is that for each web page on Ohloh, there may be an equivalent XML-formatted version of the page. Currently, only a small subset of the Ohloh site is available as XML, but more data will become available over time." \cite{ohloh-api}
 
 
 \subsection{Peril: Can't find people by programming language}
-Currently you can't find people who use one -or several- language(s), without spidering the whole site and scraping it yourself. With the 1000 queries per day limit, one would need about a year (330 days) to scrape the entier user base.
+Currently you can't find people who use one -or several- language(s), without spidering the whole site and scraping it yourself. With the 1000 queries per day limit, one would need about a year (330 days) to scrape the entire user base.
 
 
 \subsection{Peril: Commit stats don't separate out changed lines}
-Encountered in \cite{Deshpande:2008p4463} is that Ohloh only counts lines removed from the previous state, and lines added in the commit. The amount of overlap is unknown, there is no count of which lines are only slightly changed. The lines changed or overlap measure could be used to asses code churn.
+Encountered in "Continuous integration in open source software development" \cite{Deshpande:2008p4463} is that Ohloh only counts lines removed from the previous state, and lines added in the commit. The amount of overlap is unknown, there is no count of which lines are only slightly changed. The lines changed or overlap measure could be used to asses code churn.
 
 
 \section{Conclusions}
@@ -116,7 +124,8 @@ Conclusions here..
 The structure of the paper was inspired by "The Promises and Perils of Mining Git" \cite{Bird:2009p4462}.
 
 
-\bibliographystyle{abbrv}
+\bibliographystyle{plainnat} % {abbrv}
 \bibliography{myrefs}
+%\bibliography{webrefs} % Meh, adds another References section..
 
 \end{document}
