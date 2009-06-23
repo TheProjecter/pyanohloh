@@ -3,7 +3,7 @@
 """
 ohloh-query-lxml.py
 
-There is a dependency on lxml. On OS X you can get it with MacPorts.
+There is a dependency on lxml and BeautifulSoup. On OS X you can get these with MacPorts or easy_install-2.5.
 
 Created by Henk Poley on 2009-04-22.
 Copyright (c) 2009. All rights reserved.
